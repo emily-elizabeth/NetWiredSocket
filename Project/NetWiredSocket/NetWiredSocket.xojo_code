@@ -231,10 +231,7 @@ Inherits SSLSocket
 
 	#tag Method, Flags = &h0
 		Sub ChangeFolderType(path As String, type As Integer)
-		  ''path As String, type As WiredSocket.FileType
-		  '
-		  'DIM fileType As Integer = CType(type, Integer)
-		  'me.Write "TYPE " + path + me.FS + fileType.ToText
+		  me.Write "TYPE " + path + me.FS + type.ToString
 		End Sub
 	#tag EndMethod
 
