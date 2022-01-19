@@ -771,26 +771,32 @@ Inherits SSLSocket
 
 	#tag Method, Flags = &h21
 		Private Function DateFromString(value As String) As DateTime
-		  // converts ISO 8601 full "date-time" format (RFC 3339) to a RealStudio Date object
+		  // converts ISO 8601 full "date-time" format (RFC 3339) to a Xojo DateTime object
 		  // example: 1996-12-19T16:39:57-08:00
 		  // This represents 39 minutes and 57 seconds after the 16th hour of December 19th, 1996 with an offset of -08:00 from UTC.
 		  
-		  'DIM year As Integer = Integer.FromString(value.Mid(0, 4))
-		  'DIM month As Integer = Integer.FromString(value.Mid(5, 2))
-		  'DIM day As Integer = Integer.FromString(value.Mid(8, 2))
-		  'DIM hour As Integer = Integer.FromString(value.Mid(11, 2))
-		  'DIM minute As Integer = Integer.FromString(value.Mid(14, 2))
-		  'DIM seconds As Integer = Integer.FromString(value.Mid(17, 2))
-		  'DIM gmtOffset As Double = Integer.FromString(value.Mid(20, 2)) + (Integer.FromString(value.Mid(23, 2)) / 60)
-		  'if (value.Mid(19, 1) = "-") then gmtOffset = 0 - gmtOffset
-		  '
-		  'DIM tz As NEW Xojo.Core.TimeZone(gmtOffset)
-		  'Return NEW DateTime(year, month, day, hour, minute, seconds, 0, tz)
+		  DIM tYear As Integer = val(value.Mid(1,4))
+		  DIM tMonth As Integer = val(value.Mid(6,2))
+		  DIM tDay As Integer = val(value.Mid(9,2))
+		  DIM tHours As Integer = val(value.Mid(12,2))
+		  DIM tMinutes As Integer = val(value.Mid(15,2))
+		  DIM tSeconds As Integer = val(value.Mid(18,2))
+		  DIM tGMTOffset As Double = val(value.Mid(20,3)) + (val(value.Mid(24,2)) / 60)
 		  
-		  'DIM t As String = value.Left(19)
-		  't = t.Replace("T", " ")
+		  DIM tDate As NEW Date
+		  DIM tLocalGMT As Double = tDate.GMTOffset
 		  
-		  Return DateTime.Now
+		  tDate.GMTOffset = tGMTOffset
+		  tDate.Year = tYear
+		  tDate.Month = tMonth
+		  tDate.Day = tDay
+		  tDate.Hour = tHours
+		  tDate.Minute = tMinutes
+		  tDate.Second = tSeconds
+		  tDate.GMTOffset = tLocalGMT
+		  
+		  DIM results As NEW DateTime(tDate)
+		  Return results
 		End Function
 	#tag EndMethod
 
