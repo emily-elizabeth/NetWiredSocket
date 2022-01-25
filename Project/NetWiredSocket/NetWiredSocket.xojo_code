@@ -145,8 +145,50 @@ Inherits SSLSocket
 		      case 421  ' search listing done - "done"(0)
 		        me.DataAvailableSearchListEnd
 		        
-		      case 500 to 599
-		        me.DataAvailableError Integer.FromString(replyParams(0))
+		      case 500  ' command failed
+		        me.DataAvailableErrorCommandFailed replyParams(0)
+		        
+		      case 501  ' command not recognized
+		        me.DataAvailableErrorCommandNotRecognized replyParams(0)
+		        
+		      case 502  ' command not implemented
+		        me.DataAvailableErrorCommandNotImplemented replyParams(0)
+		        
+		      case 503  ' syntax error
+		        me.DataAvailableErrorSyntaxError replyParams(0)
+		        
+		      case 510  ' login failed
+		        me.DataAvailableErrorLoginFailed replyParams(0)
+		        
+		      case 511  ' banned
+		        me.DataAvailableErrorBanned replyParams(0)
+		        
+		      case 512  ' client not found
+		        me.DataAvailableErrorClientNotFound replyParams(0)
+		        
+		      case 513  ' account not found
+		        me.DataAvailableErrorAccountNotFound replyParams(0)
+		        
+		      case 514  ' account exists
+		        me.DataAvailableErrorAccountExists replyParams(0)
+		        
+		      case 515  ' cannot be disconnected
+		        me.DataAvailableErrorCannotBeDisconnected replyParams(0)
+		        
+		      case 516  ' permission denied
+		        me.DataAvailableErrorPermissionDenied replyParams(0)
+		        
+		      case 520  ' file or directory not found
+		        me.DataAvailableErrorFileNotFound replyParams(0)
+		        
+		      case 521  ' file or directory exists
+		        me.DataAvailableErrorFileExists replyParams(0)
+		        
+		      case 522  ' checksum mismatch
+		        me.DataAvailableErrorChecksumMismatch replyParams(0)
+		        
+		      case 523  ' Queue Limit Exceeded
+		        me.DataAvailableErrorQueueLimitExceeded replyParams(0)
 		        
 		      case 600  ' user specification
 		        REDIM replyParams(25)
@@ -202,7 +244,7 @@ Inherits SSLSocket
 	#tag Event
 		Sub Error(err As RuntimeException)
 		  if (me.LastErrorCode <> 0) then
-		    RaiseEvent Error me.LastErrorCode
+		    RaiseEvent Error err.Message
 		  end if
 		End Sub
 	#tag EndEvent
@@ -411,11 +453,151 @@ Inherits SSLSocket
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Sub DataAvailableError(code As Integer)
+		Private Sub DataAvailableErrorAccountExists(message As String)
 		  if (me.mDelegate.Value = Nil) then
-		    RaiseEvent Error code
+		    RaiseEvent ErrorAccountExists message
 		  else
-		    NetWiredSocketInterface(me.mDelegate.Value).Error code
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorAccountExists message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorAccountNotFound(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorAccountNotFound message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorAccountNotFound message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorBanned(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorBanned message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorBanned message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorCannotBeDisconnected(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorCannotBeDisconnected message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorCannotBeDisconnected message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorChecksumMismatch(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorChecksumMismatch message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorChecksumMismatch message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorClientNotFound(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorClientNotFound message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorClientNotFound message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorCommandFailed(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorCommandFailed message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorCommandFailed message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorCommandNotImplemented(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorCommandNotImplemented message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorCommandNotImplemented message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorCommandNotRecognized(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorCommandNotRecognized message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorCommandNotRecognized message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorFileExists(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorFileExists message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorFileExists message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorFileNotFound(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorFileNotFound message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorFileNotFound message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorLoginFailed(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorLoginFailed message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorLoginFailed message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorPermissionDenied(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorPermissionDenied message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorPermissionDenied message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorQueueLimitExceeded(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorQueueLimitExceeded message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorQueueLimitExceeded message
+		  end if
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
+		Private Sub DataAvailableErrorSyntaxError(message As String)
+		  if (me.mDelegate.Value = Nil) then
+		    RaiseEvent ErrorSyntaxError message
+		  else
+		    NetWiredSocketInterface(me.mDelegate.Value).ErrorSyntaxError message
 		  end if
 		End Sub
 	#tag EndMethod
@@ -1015,7 +1197,7 @@ Inherits SSLSocket
 		  if (isBroadcast) then
 		    me.Write "BROADCAST " + message
 		  else
-		    me.Write "MSG " + userID.ToText + me.FS + message
+		    me.Write "MSG " + userID.ToString + me.FS + message
 		  end if
 		End Sub
 	#tag EndMethod
@@ -1170,7 +1352,67 @@ Inherits SSLSocket
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
-		Event Error(code As Integer)
+		Event Error(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorAccountExists(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorAccountNotFound(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorBanned(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorCannotBeDisconnected(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorChecksumMismatch(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorClientNotFound(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorCommandFailed(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorCommandNotImplemented(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorCommandNotRecognized(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorFileExists(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorFileNotFound(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorLoginFailed(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorPermissionDenied(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorQueueLimitExceeded(message As String)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event ErrorSyntaxError(message As String)
 	#tag EndHook
 
 	#tag Hook, Flags = &h0

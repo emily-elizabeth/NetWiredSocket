@@ -49,7 +49,97 @@ Protected Interface NetWiredSocketInterface
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub Error(code As Integer)
+		Sub Error(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorAccountExists(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorAccountNotFound(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorBanned(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorCannotBeDisconnected(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorChecksumMismatch(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorClientNotFound(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorCommandFailed(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorCommandNotImplemented(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorCommandNotRecognized(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorFileExists(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorFileNotFound(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorLoginFailed(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorPermissionDenied(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorQueueLimitExceeded(message As String)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ErrorSyntaxError(message As String)
 		  
 		End Sub
 	#tag EndMethod
